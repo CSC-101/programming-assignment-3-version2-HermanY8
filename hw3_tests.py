@@ -1,6 +1,7 @@
 import data
 import build_data
 import unittest
+import hw3
 
 
 # These two values are defined to support testing below. The
@@ -181,26 +182,319 @@ class TestCases(unittest.TestCase):
     # Part 1
     # test population_total
 
+    def test_population_total_1(self):
+        county_lst = full_data
+        result = hw3.population_total(county_lst)
+        expected = 318857056
+        self.assertEqual(expected, result)
+
+    def test_population_total_2(self):
+        county_lst = reduced_data
+        result = hw3.population_total(county_lst)
+        expected = 655813
+        self.assertEqual(expected, result)
+
+
     # Part 2
     # test filter_by_state
 
+    def test_filter_by_state_1(self):
+        county_lst = full_data
+        state = "CA"
+        filtered_state_lst = hw3.filter_by_state(county_lst, state)
+        result = hw3.population_total(filtered_state_lst)
+        expected = 38802500
+        self.assertEqual(expected, result)
+
+    def test_filter_by_state_2(self):
+        county_lst = full_data
+        state = "JOE"
+        filtered_state_lst = hw3.filter_by_state(county_lst, state)
+        result = hw3.population_total(filtered_state_lst)
+        expected = 0
+        self.assertEqual(expected, result)
+
+
     # Part 3
+
     # test population_by_education
+
+    def test_population_by_education_1(self):
+        county_lst = [data.CountyDemographics(
+            {'Percent 65 and Older': 17.5, 'Percent Under 18 Years': 18.1, 'Percent Under 5 Years': 4.8},'San Luis Obispo County',
+            {"Bachelor's Degree or Higher": 31.5, 'High School or Higher': 89.6},
+            {'American Indian and Alaska Native Alone': 1.4,'Asian Alone': 3.8, 'Black Alone': 2.2,
+             'Hispanic or Latino': 22.0, 'Native Hawaiian and Other Pacific Islander Alone': 0.2, 'Two or More Races': 3.4,
+             'White Alone': 89.0, 'White Alone, not Hispanic or Latino': 69.5},
+            {'Median Household Income': 58697, 'Per Capita Income': 29954, 'Persons Below Poverty Level': 14.3},
+            {'2010 Population': 269637, '2014 Population': 279083, 'Population Percent Change': 3.5,
+             'Population per Square Mile': 81.7},'CA')]
+        result = hw3.population_by_education(county_lst, "Bachelor's Degree or Higher")
+        expected = 8791114.5 / 100
+        self.assertEqual(expected, result)
+
+    def test_population_by_education_2(self):
+        county_lst = [data.CountyDemographics(
+            {'Percent 65 and Older': 17.5, 'Percent Under 18 Years': 18.1, 'Percent Under 5 Years': 4.8},'San Luis Obispo County',
+            {"Bachelor's Degree or Higher": 31.5, 'High School or Higher': 89.6},
+            {'American Indian and Alaska Native Alone': 1.4,'Asian Alone': 3.8, 'Black Alone': 2.2,
+             'Hispanic or Latino': 22.0, 'Native Hawaiian and Other Pacific Islander Alone': 0.2, 'Two or More Races': 3.4,
+             'White Alone': 89.0, 'White Alone, not Hispanic or Latino': 69.5},
+            {'Median Household Income': 58697, 'Per Capita Income': 29954, 'Persons Below Poverty Level': 14.3},
+            {'2010 Population': 269637, '2014 Population': 279083, 'Population Percent Change': 3.5,
+             'Population per Square Mile': 81.7},'CA')]
+        result = hw3.population_by_education(county_lst, "JOE")
+        expected = 0
+        self.assertEqual(expected, result)
+
+    def test_population_by_education_3(self):
+        county_lst = reduced_data
+        result = hw3.population_by_education(county_lst, "Bachelor's Degree or Higher")
+        expected = 19511409.1 / 100
+        self.assertEqual(expected, result)
+
     # test population_by_ethnicity
+
+    def test_population_by_ethnicity_1(self):
+        county_lst = [data.CountyDemographics(
+            {'Percent 65 and Older': 17.5, 'Percent Under 18 Years': 18.1, 'Percent Under 5 Years': 4.8},
+            'San Luis Obispo County',
+            {"Bachelor's Degree or Higher": 31.5, 'High School or Higher': 89.6},
+            {'American Indian and Alaska Native Alone': 1.4, 'Asian Alone': 3.8, 'Black Alone': 2.2,
+             'Hispanic or Latino': 22.0, 'Native Hawaiian and Other Pacific Islander Alone': 0.2,
+             'Two or More Races': 3.4,
+             'White Alone': 89.0, 'White Alone, not Hispanic or Latino': 69.5},
+            {'Median Household Income': 58697, 'Per Capita Income': 29954, 'Persons Below Poverty Level': 14.3},
+            {'2010 Population': 269637, '2014 Population': 279083, 'Population Percent Change': 3.5,
+             'Population per Square Mile': 81.7}, 'CA')]
+        result = hw3.population_by_ethnicity(county_lst, "Two or More Races")
+        expected = 948882.2 / 100
+        self.assertEqual(expected, result)
+
+    def test_population_by_ethnicity_2(self):
+        county_lst = [data.CountyDemographics(
+            {'Percent 65 and Older': 17.5, 'Percent Under 18 Years': 18.1, 'Percent Under 5 Years': 4.8},
+            'San Luis Obispo County',
+            {"Bachelor's Degree or Higher": 31.5, 'High School or Higher': 89.6},
+            {'American Indian and Alaska Native Alone': 1.4, 'Asian Alone': 3.8, 'Black Alone': 2.2,
+             'Hispanic or Latino': 22.0, 'Native Hawaiian and Other Pacific Islander Alone': 0.2,
+             'Two or More Races': 3.4,
+             'White Alone': 89.0, 'White Alone, not Hispanic or Latino': 69.5},
+            {'Median Household Income': 58697, 'Per Capita Income': 29954, 'Persons Below Poverty Level': 14.3},
+            {'2010 Population': 269637, '2014 Population': 279083, 'Population Percent Change': 3.5,
+             'Population per Square Mile': 81.7}, 'CA')]
+        result = hw3.population_by_ethnicity(county_lst, "JOE")
+        expected = 0
+        self.assertEqual(expected, result)
+
+    def test_population_by_ethnicity_3(self):
+        county_lst = reduced_data
+        result = hw3.population_by_ethnicity(county_lst, "Two or More Races")
+        expected = 2361395.1 / 100
+        self.assertEqual(expected, result)
+
     # test population_below_poverty_level
 
+    def test_population_below_poverty_level_1(self):
+        county_lst = [data.CountyDemographics(
+            {'Percent 65 and Older': 17.5, 'Percent Under 18 Years': 18.1, 'Percent Under 5 Years': 4.8},
+            'San Luis Obispo County',
+            {"Bachelor's Degree or Higher": 31.5, 'High School or Higher': 89.6},
+            {'American Indian and Alaska Native Alone': 1.4, 'Asian Alone': 3.8, 'Black Alone': 2.2,
+             'Hispanic or Latino': 22.0, 'Native Hawaiian and Other Pacific Islander Alone': 0.2,
+             'Two or More Races': 3.4,
+             'White Alone': 89.0, 'White Alone, not Hispanic or Latino': 69.5},
+            {'Median Household Income': 58697, 'Per Capita Income': 29954, 'Persons Below Poverty Level': 14.3},
+            {'2010 Population': 269637, '2014 Population': 279083, 'Population Percent Change': 3.5,
+             'Population per Square Mile': 81.7}, 'CA')]
+        result = hw3.population_below_poverty_level(county_lst)
+        expected = 3990886.9 / 100
+        self.assertAlmostEqual(expected, result, delta = 0.01)
+
+    def test_population_below_poverty_level_2(self):
+        county_lst = reduced_data
+        result = hw3.population_below_poverty_level(county_lst)
+        expected = 10771171.4 / 100
+        self.assertAlmostEqual(expected, result, delta = 0.01)
+
+
     # Part 4
+
     # test percent_by_education
+
+    def test_percent_by_education_1(self):
+        county_lst = reduced_data
+        result = hw3.percent_by_education(county_lst, "Bachelor's Degree or Higher")
+        expected = 29.75
+        self.assertAlmostEqual(expected, result, delta = 0.01)
+
+    def test_percent_by_education_2(self):
+        county_lst = reduced_data
+        result = hw3.percent_by_education(county_lst, "JOE")
+        expected = 0
+        self.assertEqual(expected, result)
+
     # test percent_by_ethnicity
+
+    def test_percent_by_ethnicity_1(self):
+        county_lst = reduced_data
+        result = hw3.percent_by_ethnicity(county_lst, "Two or More Races")
+        expected = 3.6
+        self.assertAlmostEqual(expected, result, delta = 0.01)
+
+    def test_percent_by_ethnicity_2(self):
+        county_lst = reduced_data
+        result = hw3.percent_by_ethnicity(county_lst, "JOE")
+        expected = 0
+        self.assertEqual(expected, result)
+
     # test percent_below_poverty_level
 
+    def test_percent_below_poverty_level_1(self):
+        county_lst = reduced_data
+        result = hw3.percent_below_poverty_level(county_lst)
+        expected = 16.42
+        self.assertAlmostEqual(expected, result, delta = 0.01)
+
+    def test_percent_below_poverty_level_2(self):
+        county_lst = []
+        result = hw3.percent_below_poverty_level(county_lst)
+        expected = 0
+        self.assertEqual(expected, result)
+
+
     # Part 5
+
     # test education_greater_than
+
+    def test_education_greater_than_1(self):
+        county_lst = reduced_data
+        edu_interest = "Bachelor's Degree or Higher"
+        percent_threshold = 30
+        new_county_lst = hw3.education_greater_than(county_lst, edu_interest, percent_threshold)
+        result = hw3.population_total(new_county_lst)
+        expected = 486673
+        self.assertEqual(expected, result)
+
+    def test_education_greater_than_2(self):
+        county_lst = reduced_data
+        edu_interest = "Joe"
+        percent_threshold = 30
+        new_county_lst = hw3.education_greater_than(county_lst, edu_interest, percent_threshold)
+        result = hw3.population_total(new_county_lst)
+        expected = 0
+        self.assertEqual(expected, result)
+
+
+
     # test education_less_than
+
+    def test_education_less_than_1(self):
+        county_lst = reduced_data
+        edu_interest = "Bachelor's Degree or Higher"
+        percent_threshold = 30
+        new_county_lst = hw3.education_less_than(county_lst, edu_interest, percent_threshold)
+        result = hw3.population_total(new_county_lst)
+        expected = 169140
+        self.assertEqual(expected, result)
+
+    def test_education_less_than_2(self):
+        county_lst = reduced_data
+        edu_interest = "Joe"
+        percent_threshold = 30
+        new_county_lst = hw3.education_less_than(county_lst, edu_interest, percent_threshold)
+        result = hw3.population_total(new_county_lst)
+        expected = 0
+        self.assertEqual(expected, result)
+
     # test ethnicity_greater_than
+
+    def test_ethnicity_greater_than_1(self):
+        county_lst = reduced_data
+        edu_interest = "Hispanic or Latino"
+        percent_threshold = 10
+        new_county_lst = hw3.ethnicity_greater_than(county_lst, edu_interest, percent_threshold)
+        result = hw3.population_total(new_county_lst)
+        expected = 486673
+        self.assertEqual(expected, result)
+
+    def test_ethnicity_greater_than_2(self):
+        county_lst = reduced_data
+        edu_interest = "JOE"
+        percent_threshold = 10
+        new_county_lst = hw3.ethnicity_greater_than(county_lst, edu_interest, percent_threshold)
+        result = hw3.population_total(new_county_lst)
+        expected = 0
+        self.assertEqual(expected, result)
+
+
     # test ethnicity_less_than
+
+    def test_ethnicity_less_than_1(self):
+        county_lst = reduced_data
+        edu_interest = "Hispanic or Latino"
+        percent_threshold = 10
+        new_county_lst = hw3.ethnicity_less_than(county_lst, edu_interest, percent_threshold)
+        result = hw3.population_total(new_county_lst)
+        expected = 169140
+        self.assertEqual(expected, result)
+
+    def test_ethnicity_less_than_2(self):
+        county_lst = reduced_data
+        edu_interest = "JOE"
+        percent_threshold = 10
+        new_county_lst = hw3.ethnicity_greater_than(county_lst, edu_interest, percent_threshold)
+        result = hw3.population_total(new_county_lst)
+        expected = 0
+        self.assertEqual(expected, result)
+
+
     # test below_poverty_level_greater_than
+
+    def test_below_poverty_level_greater_than_1(self):
+        county_lst = reduced_data
+        percent_threshold = 15
+        new_county_lst = hw3.below_poverty_level_greater_than(county_lst, percent_threshold)
+        result = hw3.population_total(new_county_lst)
+        expected = 314134
+        self.assertEqual(result, expected)
+
+    def test_below_poverty_level_greater_than_2(self):
+        county_lst = reduced_data
+        percent_threshold = 20
+        new_county_lst = hw3.below_poverty_level_greater_than(county_lst, percent_threshold)
+        result = hw3.population_total(new_county_lst)
+        expected = 61697
+        self.assertEqual(result, expected)
+
+    def test_below_poverty_level_greater_than_3(self):
+        county_lst = []
+        percent_threshold = 20
+        new_county_lst = hw3.below_poverty_level_greater_than(county_lst, percent_threshold)
+        result = hw3.population_total(new_county_lst)
+        expected = 0
+        self.assertEqual(result, expected)
+
+
     # test below_poverty_level_less_than
+
+    def test_below_poverty_level_less_than_1(self):
+        county_lst = reduced_data
+        percent_threshold = 15
+        new_county_lst = hw3.below_poverty_level_less_than(county_lst, percent_threshold)
+        result = hw3.population_total(new_county_lst)
+        expected = 341679
+        self.assertEqual(result, expected)
+
+    def test_below_poverty_level_less_than_2(self):
+        county_lst = []
+        percent_threshold = 15
+        new_county_lst = hw3.below_poverty_level_less_than(county_lst, percent_threshold)
+        result = hw3.population_total(new_county_lst)
+        expected = 0
+        self.assertEqual(result, expected)
+
+
 
 
 
